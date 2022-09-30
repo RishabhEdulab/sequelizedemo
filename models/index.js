@@ -1,12 +1,16 @@
 var fs        = require("fs");
 var path      = require("path");
-
+const config = require('config');
+const dbConfig = config.get('DB.HOST');
+const dbName = config.get('DB.DBNAME');
+const user = config.get('DB.USER');
+const password = config.get('DB.PASSWORD');
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize('interns', 'interns', '123456', {
-  host: 'localhost',
+const sequelize = new Sequelize(dbName, user, password, {
+  host: dbConfig,
   dialect: "mysql",
   operatorsAliases: false,
-  logging:false,
+  logging:true,
   pool: {
     max: 5,
     min: 0,
